@@ -7,7 +7,6 @@ import com.app.ecom.model.User;
 import com.app.ecom.repository.CartItemRepository;
 import com.app.ecom.repository.ProductRepository;
 import com.app.ecom.repository.UserRepository;
-
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

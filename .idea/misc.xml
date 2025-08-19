@@ -5,6 +5,9 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/3.AfterDTOs/ecom-application/pom.xml" />
+        <option value="$PROJECT_DIR$/4.RestructuringIntoMicroServices/user/pom.xml" />
+        <option value="$PROJECT_DIR$/4.RestructuringIntoMicroServices/product/pom.xml" />
+        <option value="$PROJECT_DIR$/4.RestructuringIntoMicroServices/order/pom.xml" />
       </list>
     </option>
   </component>

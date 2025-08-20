@@ -1,6 +1,5 @@
 package com.ecommerce.order.models;
 
-import com.app.ecom.model.Order;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,9 +16,7 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    private String productId;
 
     private Integer quantity;
     private BigDecimal price;

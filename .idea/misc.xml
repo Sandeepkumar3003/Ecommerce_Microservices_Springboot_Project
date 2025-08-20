@@ -8,6 +8,8 @@
         <option value="$PROJECT_DIR$/4.RestructuringIntoMicroServices/user/pom.xml" />
         <option value="$PROJECT_DIR$/4.RestructuringIntoMicroServices/product/pom.xml" />
         <option value="$PROJECT_DIR$/4.RestructuringIntoMicroServices/order/pom.xml" />
+        <option value="$PROJECT_DIR$/5.ConfigurationManagement/configdemo/pom.xml" />
+        <option value="$PROJECT_DIR$/5.ConfigurationManagement/configserver/pom.xml" />
       </list>
     </option>
   </component>

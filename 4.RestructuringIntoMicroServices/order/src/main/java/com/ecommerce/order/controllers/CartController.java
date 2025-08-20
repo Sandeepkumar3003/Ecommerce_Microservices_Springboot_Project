@@ -32,7 +32,7 @@ public class CartController {
     @DeleteMapping("/items/{productId}")
     public ResponseEntity<Void> removeFromCart(
             @RequestHeader("X-User-ID") String userId,
-            @PathVariable Long productId) {
+            @PathVariable String productId) {
         boolean deleted = cartService.deleteItemFromCart(userId, productId);
         if (deleted) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

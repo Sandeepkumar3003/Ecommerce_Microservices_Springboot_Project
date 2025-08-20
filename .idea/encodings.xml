@@ -5,5 +5,7 @@
     <file url="file://$PROJECT_DIR$/4.RestructuringIntoMicroServices/order/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/4.RestructuringIntoMicroServices/product/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/4.RestructuringIntoMicroServices/user/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/5.ConfigurationManagement/configdemo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/5.ConfigurationManagement/configserver/src/main/java" charset="UTF-8" />
   </component>
 </project>

@@ -10,18 +10,16 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
 public class CartService {
 
-    @Autowired
+    //    @Autowired
 //    private ProductRepository productRepository;
     @Autowired
     private CartItemRepository cartItemRepository;
-
-    @Autowired
+//
 //    private UserRepository userRepository;
 
     public boolean addToCart(String userId, CartItemRequest request) {
@@ -45,29 +43,29 @@ public class CartService {
 
 //        if product already exist in UserCart then update the Quantity or else add new product in cart
 
-        CartItem existingCartItem = cartItemRepository.findByUserAndProduct(user, product);
+        CartItem existingCartItem = cartItemRepository.findByUserIdAndProductId(userId, request.getProductId());
 
         if (existingCartItem != null) {
 //           update the quantity
             existingCartItem.setQuantity(existingCartItem.getQuantity() + request.getQuantity());
-            existingCartItem.setPrice(product.getPrice().multiply(BigDecimal.valueOf(existingCartItem.getQuantity())));
+            existingCartItem.setPrice(BigDecimal.valueOf(1000.00));
             cartItemRepository.save(existingCartItem);
 
         } else {
 //            Create new Cart Item
             CartItem cartItem = new CartItem();
-            cartItem.setUser(user);
-            cartItem.setProduct(product);
+            cartItem.setUserId(userId);
+            cartItem.setProductId(request.getProductId());
             cartItem.setQuantity(request.getQuantity());
-            cartItem.setPrice(product.getPrice());
-            cartItem.setTotalPrice(product.getPrice().multiply(BigDecimal.valueOf(request.getQuantity())));
+            cartItem.setPrice(BigDecimal.valueOf(100));
+            cartItem.setTotalPrice(BigDecimal.valueOf(1000.00));
             cartItemRepository.save(cartItem);
         }
 
         return true;
     }
 
-    public boolean deleteItemFromCart(String userId, Long productId) {
+    public boolean deleteItemFromCart(String userId, String productId) {
 //        Optional<Product> productOpt = productRepository.findById(productId);
 //        if(productOpt.isEmpty()){
 //            return false;
@@ -85,12 +83,14 @@ public class CartService {
 //                })
 //        );
 //        return true;
+//
+//        Optional<Product> productOpt = productRepository.findById(productId);
+//        Optional<User> userOpt = userRepository.findById(Long.valueOf(userId));
 
-        Optional<Product> productOpt = productRepository.findById(productId);
-        Optional<User> userOpt = userRepository.findById(Long.valueOf(userId));
+        CartItem cartItem = cartItemRepository.findByUserIdAndProductId(userId, productId);
 
-        if (productOpt.isPresent() && userOpt.isPresent()) {
-            cartItemRepository.deleteByUserAndProduct(userOpt.get(), productOpt.get());
+        if (cartItem != null) {
+            cartItemRepository.delete(cartItem);
             return true;
         }
         return false;
@@ -98,14 +98,10 @@ public class CartService {
     }
 
     public List<CartItem> getCart(String userId) {
-        return userRepository.findById(Long.valueOf(userId))
-                .map(cartItemRepository::findByUser)
-                .orElseGet(List::of);
+        return cartItemRepository.findByUserId(userId);
     }
 
     public void clearCart(String userId) {
-        userRepository.findById(Long.valueOf(userId)).ifPresent(user ->
-                cartItemRepository.deleteByUser(user)
-        );
+        cartItemRepository.deleteByUserId(userId);
     }
 }

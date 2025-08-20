@@ -19,7 +19,7 @@ import java.util.Optional;
 public class OrderService {
 
     private final CartService cartService;
-    private final UserRepository userRepository;
+    //    private final UserRepository userRepository;
     private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
 
@@ -35,12 +35,12 @@ public class OrderService {
             return Optional.empty();
         }
 
-        Optional<User> userOptional = userRepository.findById(Long.valueOf(userId));
-        if (userOptional.isEmpty()) {
-            return Optional.empty();
-        }
-
-        User user = userOptional.get();
+//        Optional<User> userOptional = userRepository.findById(Long.valueOf(userId));
+//        if (userOptional.isEmpty()) {
+//            return Optional.empty();
+//        }
+//
+//        User user = userOptional.get();
 
         BigDecimal totalPrice = cartItems.stream()
                 .map(CartItem::getPrice)
@@ -50,14 +50,14 @@ public class OrderService {
 
 //        Create Order
         Order order = new Order();
-        order.setUser(user);
+        order.setUserId(Long.valueOf(userId));
         order.setStatus(OrderStatus.CONFIRMED);
         order.setTotalAmount(totalPrice);
 
         List<OrderItem> orderItems = cartItems.stream()
                 .map(item -> new OrderItem(
                         null,
-                        item.getProduct(),
+                        item.getProductId(),
                         item.getQuantity(),
                         item.getPrice(),
                         item.getTotalPrice(),

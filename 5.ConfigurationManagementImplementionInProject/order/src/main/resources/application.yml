@@ -2,16 +2,7 @@ spring:
   application:
     name: order-service
 
-  h2:
-    console:
-      enabled: true
-  datasource:
-      url: jdbc:h2:mem:test
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: create
+# we need to fetch the configuration , we need to specify path
 
-server:
-  port: 8083
-
+  config:
+    import: optional:configserver:http://localhost:8888

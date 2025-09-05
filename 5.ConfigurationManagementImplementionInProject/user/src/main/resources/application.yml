@@ -2,17 +2,8 @@ spring:
   application:
     name: user-service
 
-  h2:
-    console:
-      enabled: true
-  datasource:
-    url: jdbc:h2:mem:test
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: create
 
-server:
-  port: 8082
+  # we need to fetch the configuration , we need to specify path
 
-
+  config:
+    import: optional:configserver:http://localhost:8888

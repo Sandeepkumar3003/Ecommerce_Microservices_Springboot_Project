@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -96,5 +97,13 @@ public class ProductService {
         ).toList();
 
         return productResponses;
+    }
+
+    public ProductResponse getProductById(String id) {
+        Product product = (Product) productRepository.findByIdAndActiveTrue(Long.valueOf(id)).
+                orElseThrow(() -> new ResourceNotFoundException("Product","productId",Long.valueOf(id)));
+        ProductResponse productResponse = modelMapper.map(product,ProductResponse.class);
+
+        return productResponse;
     }
 }

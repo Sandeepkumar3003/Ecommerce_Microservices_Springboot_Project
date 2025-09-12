@@ -29,6 +29,15 @@ public class ProductController {
                 HttpStatus.OK);
     }
 
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable String id) {
+        return new ResponseEntity<ProductResponse>(productService.getProductById(id),
+                HttpStatus.OK);
+    }
+
+
+
     @GetMapping("/recentlyDeletedProducts")
     public ResponseEntity<List<ProductResponse>> getDeletedProduct() {
         return new ResponseEntity<List<ProductResponse>>(productService.getDeletedProduct(),

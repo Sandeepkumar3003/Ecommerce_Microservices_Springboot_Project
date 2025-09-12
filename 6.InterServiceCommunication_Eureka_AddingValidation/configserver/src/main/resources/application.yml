@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: configserver
+  profiles:
+    active: native
+
+  #  Credentials for rabbitmq
+#
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
+
+
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/config-repo
+
+#  cloud:
+#    config:
+#      server:
+#        native:
+#          search-locations: file:///D:\8th sem\coding ninjas\SpringbootProjects\MicroServicesProject\5.ConfigurationManagementImplementionInProject\configserver\src\main\resources\config-repo>
+server:
+  port: 8888
+
+# properties for actuator
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

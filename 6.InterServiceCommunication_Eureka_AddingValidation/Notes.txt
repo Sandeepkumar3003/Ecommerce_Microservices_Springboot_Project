@@ -1,0 +1,5 @@
+184. we need to download jar file with necessary eureka dependency, And enable the eureka server with annotation
+
+185. Here we added the config-properties -in 3 services which will register and fetched in Eureka service.
+
+186.Adding the Validation

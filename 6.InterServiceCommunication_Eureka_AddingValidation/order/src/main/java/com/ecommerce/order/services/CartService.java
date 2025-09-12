@@ -1,10 +1,13 @@
 package com.ecommerce.order.services;
 
 
+import com.ecommerce.order.clients.ProductServiceClient;
 import com.ecommerce.order.dtos.CartItemRequest;
+import com.ecommerce.order.dtos.ProductResponse;
 import com.ecommerce.order.models.CartItem;
 import com.ecommerce.order.repository.CartItemRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +16,15 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class CartService {
 
     //    @Autowired
 //    private ProductRepository productRepository;
     @Autowired
     private CartItemRepository cartItemRepository;
+
+    private final ProductServiceClient productServiceClient;
 //
 //    private UserRepository userRepository;
 
@@ -26,6 +32,15 @@ public class CartService {
 //        Look for product
 //        Optional<Product> productOpt = productRepository.findById(request.getProductID());
 //        if(productOpt.isEmpty()){
+//            return false;
+//        }
+
+        ProductResponse productResponse = productServiceClient.getProductDetails(request.getProductId());
+        if(productResponse == null || productResponse.getStockQuantity() < request.getQuantity()){
+            return false;
+        }
+//
+//        if(productResponse.getStockQuantity() < request.getQuantity()){
 //            return false;
 //        }
 ////

@@ -3,3 +3,11 @@
 185. Here we added the config-properties -in 3 services which will register and fetched in Eureka service.
 
 186.Adding the Validation
+
+Adding new Api request for fetching product by Id
+
+-- Updating cart service with using Http Interface and rest client - for API calls
+
+-Need to create a common Bean or config - globally for API calls
+
+-productServiceClient

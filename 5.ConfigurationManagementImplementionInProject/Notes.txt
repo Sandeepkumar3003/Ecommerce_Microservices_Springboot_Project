@@ -1,1 +1,21 @@
 153. Download the Jar file (ConfigServer) and add in project and In main class EnableConfigServer with Annotation
+
+Here we need to move all the services application.yml file to configserver service and we need change some properties in yml as follows.
+
+Here we remove the configuration for al individual service and just add application.yml name so that , in config service as we saved the yml with name like order-service.yml etc..it will fetch the configuration .
+
+# we need to fetch the configuration , we need to specify path in respective application.yml
+
+We need to add config client dependecy to all three services
+
+155. Externalize configuration using .env file or environment variable - I didn't do
+replacing credentials and adding deatils .env - adding path in environment variable 
+
+156.Dynamic refresh to avoid restart the application using actuator
+
+first we need to add necessary dependency actuator and amqp in pom.xml for three services.
+
+We need to add the credentials for rabbitmq and properties for actuator in each services (means in configserver)
+
+
+didn't run - we need to install RabbitMQ in docker 

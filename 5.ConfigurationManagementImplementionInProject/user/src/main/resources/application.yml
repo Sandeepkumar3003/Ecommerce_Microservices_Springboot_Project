@@ -1,6 +1,6 @@
 spring:
   application:
-    name: user-service
+    name: userservice
 
 
   # we need to fetch the configuration , we need to specify path

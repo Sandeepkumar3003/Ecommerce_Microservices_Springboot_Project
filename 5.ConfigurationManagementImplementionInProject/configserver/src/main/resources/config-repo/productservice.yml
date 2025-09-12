@@ -1,0 +1,41 @@
+
+
+spring:
+#
+#  #  Credentials for rabbitmq
+#
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
+
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:test
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+
+
+
+
+# properties for actuator
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+#
+
+server:
+  port: 8081

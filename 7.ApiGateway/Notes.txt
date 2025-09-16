@@ -23,3 +23,5 @@ Adding new Api request for fetching product by Id
 219. Updated eureka service as a centralized and single point for communication(Gateway in eureka)
 
 220. Moving all Gateway configurations to Config Server
+221. Creating GatewayConfig file in GatewayService for adding configurations - moving all the yml config into code based configuration
+

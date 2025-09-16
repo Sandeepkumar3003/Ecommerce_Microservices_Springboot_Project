@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: orderservice   # must match order-service.yml in config repo
+  config:
+    import: optional:configserver:http://localhost:8888

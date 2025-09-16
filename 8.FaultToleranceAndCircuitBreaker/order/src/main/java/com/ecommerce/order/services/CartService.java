@@ -32,7 +32,7 @@ public class CartService {
 //
 //    private UserRepository userRepository;
 
-    @CircuitBreaker(name = "productService")
+    @CircuitBreaker(name = "productService", fallbackMethod = "addToCartFallBack")
     public boolean addToCart(String userId, CartItemRequest request) {
 //        Look for product
 //        Optional<Product> productOpt = productRepository.findById(request.getProductID());
@@ -88,6 +88,12 @@ public class CartService {
         }
 
         return true;
+    }
+
+    public boolean addToCartFallBack(String userId, CartItemRequest request,
+                                     Exception exception){
+        System.out.println("FALLBACK CALLED");
+        return false;
     }
 
     public boolean deleteItemFromCart(String userId, String productId) {

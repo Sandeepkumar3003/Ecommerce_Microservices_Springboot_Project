@@ -38,6 +38,9 @@ spring:
 #          predicates:
 #            - Path=/eureka/**
 
+
+
+
 #               Adding rewrite filter using yml
 
         - id: product-service

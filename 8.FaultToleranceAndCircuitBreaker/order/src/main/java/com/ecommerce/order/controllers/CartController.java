@@ -24,7 +24,7 @@ public class CartController {
             @RequestHeader("X-User-ID") String userId,
             @RequestBody CartItemRequest request) {
         if (!cartService.addToCart(userId, request)) {
-            return new ResponseEntity<>("Product out of Stock or User not found or Product not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Not able to complete request | Product out of Stock or User not found or Product not found", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Product added successfully", HttpStatus.CREATED);
     }

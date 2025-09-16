@@ -11,3 +11,15 @@ Adding new Api request for fetching product by Id
 -Need to create a common Bean or config - globally for API calls
 
 -productServiceClient
+
+
+
+216. Adding Global filter: Logging and Authentication
+217.Implementing Simple JWT Authentication
+
+218.Changing uri from HTTPS to lb in  gateway yml file
+
+
+219. Updated eureka service as a centralized and single point for communication(Gateway in eureka)
+
+220. Moving all Gateway configurations to Config Server

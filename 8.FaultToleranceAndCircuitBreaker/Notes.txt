@@ -1,0 +1,41 @@
+184. we need to download jar file with necessary eureka dependency, And enable the eureka server with annotation
+
+185. Here we added the config-properties -in 3 services which will register and fetched in Eureka service.
+
+186.Adding the Validation
+
+Adding new Api request for fetching product by Id
+
+-- Updating cart service with using Http Interface and rest client - for API calls
+
+-Need to create a common Bean or config - globally for API calls
+
+-productServiceClient
+
+
+
+216. Adding Global filter: Logging and Authentication
+217.Implementing Simple JWT Authentication
+
+218.Changing uri from HTTPS to lb in  gateway yml file
+
+
+219. Updated eureka service as a centralized and single point for communication(Gateway in eureka)
+
+220. Moving all Gateway configurations to Config Server
+221. Creating GatewayConfig file in GatewayService for adding configurations - moving all the yml config into code based configuration
+
+
+222. rewrite filter uses - we want rewrite the uri (ex - "api/order/create/" to "order/create/") -code based
+
+224. rewrite filter uses - we want rewrite the uri (ex - "api/order/create/" to "order/create/") using yml
+
+
+
+I didn't change as mentioned in 225
+
+
+
+232. Added Resilence4j Dependency in order pom.xml and in order service - addToCart method - implementing Circuit Breaker - It require when  service-A is dependent on a service-B and if service-B is down then , instead for throwing fail, we can implement circuit breaker  
+
+We wrote some Config properties in yml and Based on name we mention while writing config, we need to use that name while adding @CircuitBreaker(name="productservice")

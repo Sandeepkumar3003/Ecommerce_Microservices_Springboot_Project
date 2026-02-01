@@ -39,6 +39,7 @@ public class CartService {
 //        }
 
         ProductResponse productResponse = productServiceClient.getProductDetails(request.getProductId());
+        System.out.println("UserResponse " + productResponse);
         if(productResponse == null || productResponse.getStockQuantity() < request.getQuantity()){
             return false;
         }
@@ -62,9 +63,10 @@ public class CartService {
 //        if product already exist in UserCart then update the Quantity or else add new product in cart
 
         UserResponse userResponse = userServiceClient.getUserDetails(userId);
-        if(userResponse == null){
-            return false;
-        }
+        System.out.println("UserResponse " + userResponse);
+//        if(userResponse == null){
+//            return false;
+//        }
 
         CartItem existingCartItem = cartItemRepository.findByUserIdAndProductId(userId, request.getProductId());
 

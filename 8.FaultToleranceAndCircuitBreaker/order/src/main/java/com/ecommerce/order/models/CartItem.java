@@ -11,15 +11,16 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import java.util.UUID;
+
 @Entity
 @Data
 public class CartItem {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id = UUID.randomUUID().toString(); // UUID as String ID
 
-//    User can have many CartItems
-
+    // User can have many CartItems
     private String userId;
     private String productId;
 

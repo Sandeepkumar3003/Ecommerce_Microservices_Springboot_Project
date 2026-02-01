@@ -10,16 +10,28 @@ spring:
 #    username: guest
 #    password: guest
 
-  h2:
-    console:
-      enabled: true
+#  h2:
+#    console:
+#      enabled: true
+#  datasource:
+#    url: jdbc:h2:mem:test
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+
+
   datasource:
-    url: jdbc:h2:mem:test
+    url: jdbc:mysql://localhost:3306/microservices_ecommerce_productservice
+    username: root
+    password: root123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
-
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
 
 
 

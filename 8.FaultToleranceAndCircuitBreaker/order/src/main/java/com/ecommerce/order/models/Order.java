@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity(name = "orders")
 @Data
@@ -19,10 +20,10 @@ import java.util.List;
 @AllArgsConstructor
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id = UUID.randomUUID().toString(); // UUID as String ID
 
-    private Long userId;
+
+    private String userId;
 
     private BigDecimal totalAmount;
 

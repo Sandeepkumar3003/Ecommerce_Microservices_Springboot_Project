@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Entity(name = "order_item")
 @Data
@@ -13,8 +14,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class OrderItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id = UUID.randomUUID().toString(); // UUID as String ID
 
     private String productId;
 

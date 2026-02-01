@@ -28,16 +28,25 @@ public class ProductService {
 //        Save the model
 //        again convert Model into Response
 
+        System.out.println("ProductRequest :"+productRequest);
+
         Product product = modelMapper.map(productRequest, Product.class);
 
+        System.out.println("Product :"+product);
+
+        product.setActive(true);
         Product saveProduct = productRepository.save(product);
 
+        System.out.println("Product :"+product);
+
         ProductResponse productResponse = modelMapper.map(saveProduct, ProductResponse.class);
+
+        System.out.println("ProductResponse :"+productResponse);
 
         return productResponse;
     }
 
-    public ProductResponse updateProduct(Long id, ProductRequest productRequest) {
+    public ProductResponse updateProduct(String id, ProductRequest productRequest) {
         //First we need to check whether the data is present in Database or not , else throw exception
         Product saveproduct = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", id));
@@ -57,15 +66,17 @@ public class ProductService {
 
     public List<ProductResponse> getProduct() {
         List<Product> product = productRepository.findByActiveTrue();
+        System.out.println("Product :"+product);
 
         List<ProductResponse> productResponses = product.stream().map(
                 product1 -> modelMapper.map(product1, ProductResponse.class)
         ).toList();
 
+        System.out.println("ProductResponse :"+productResponses);
         return productResponses;
     }
 
-    public ProductResponse deleteProduct(Long id) {
+    public ProductResponse deleteProduct(String id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", id));
 
@@ -100,7 +111,7 @@ public class ProductService {
     }
 
     public ProductResponse getProductById(String id) {
-        Product product = (Product) productRepository.findByIdAndActiveTrue(Long.valueOf(id)).
+        Product product = (Product) productRepository.findByIdAndActiveTrue(id).
                 orElseThrow(() -> new ResourceNotFoundException("Product","productId",Long.valueOf(id)));
         ProductResponse productResponse = modelMapper.map(product,ProductResponse.class);
 

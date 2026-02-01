@@ -8,23 +8,25 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
+@Entity(name = "user_table")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "user_table")
 public class User {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
+
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
     private UserRole role = UserRole.CUSTOMER;
 
-    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
-    @JoinColumn(name = "address_id",referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @CreationTimestamp
@@ -32,4 +34,9 @@ public class User {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void generateId() {
+        this.id = UUID.randomUUID().toString();
+    }
 }

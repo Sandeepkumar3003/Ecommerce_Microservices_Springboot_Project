@@ -22,7 +22,7 @@ public class OrderController {
             @RequestHeader("X-User-ID") String userId) {
 //        OrderResponse order = orderService.createOrder(userId);
 //        return new ResponseEntity<>(order, HttpStatus.CREATED);
-        return orderService.createOrder(userId)
+        return orderService.createOrders(userId)
                 .map(orderResponse -> new ResponseEntity<>(orderResponse, HttpStatus.CREATED))
                 .orElseGet(() -> ResponseEntity.badRequest().build());
     }

@@ -9,6 +9,7 @@ import com.ecommerce.order.dtos.UserResponse;
 import com.ecommerce.order.models.CartItem;
 import com.ecommerce.order.repository.CartItemRepository;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,11 +94,15 @@ public class CartService {
 //        return true;
 //    }
 
+public int attempt;
 
-@CircuitBreaker(name = "productService", fallbackMethod = "addToCartFallBack")
+@Retry(name = "retryBreaker", fallbackMethod = "addToCartFallBack")
+//@CircuitBreaker(name = "productService", fallbackMethod = "addToCartFallBack")
 public boolean addToCart(String userId, CartItemRequest request) {
     // Fetch product from product service
     ProductResponse productResponse;
+
+    System.out.println("Number of Attempts : "+ ++attempt);
 
     productResponse = productServiceClient.getProductDetails(request.getProductId());
     System.out.println("Product Response: "+ productResponse);

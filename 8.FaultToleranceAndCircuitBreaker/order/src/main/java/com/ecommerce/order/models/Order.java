@@ -34,8 +34,10 @@ public class Order {
     private List<OrderItem> items = new ArrayList<>();
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
+    @Column(updatable = false)
     private LocalDateTime updatedAt;
 }

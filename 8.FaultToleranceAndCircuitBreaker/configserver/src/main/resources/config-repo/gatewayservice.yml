@@ -106,7 +106,7 @@ management:
 
 
   health:
-    circuitbreakers:
+    circuit breakers:
       enabled: true
 
   tracing:

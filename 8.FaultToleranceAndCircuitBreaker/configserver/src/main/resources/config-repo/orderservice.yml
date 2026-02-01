@@ -50,7 +50,7 @@ management:
       show-details: always
 
   health:
-    circuitbreakers:
+    circuit breakers:
       enabled: true
 
 

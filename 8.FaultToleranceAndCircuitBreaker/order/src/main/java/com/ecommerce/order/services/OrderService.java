@@ -125,6 +125,13 @@ public class OrderService {
                 .map(item -> item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
+        System.out.println("Order total Price 1 :"+ totalPrice);
+
+        System.out.println("Order total Price 2 :"+ order.getTotalAmount());
+
+        order.setTotalAmount(totalPrice);
+
+        System.out.println("Order total Price 3 :"+ order.getTotalAmount());
 
         List<OrderItem> orderItems = cartItems.stream()
                 .map(item -> {
@@ -136,17 +143,27 @@ public class OrderService {
                     orderItem.setTotalPrice(item.getTotalPrice());
 
 
+
                     return orderItem;
                         }).toList();
 
         order.setItems(orderItems);
 
+        System.out.println("order created at 1:"+ order.getCreatedAt());
+
+        System.out.println("Order total Price 4 :"+ order.getTotalAmount());
+
         Order savedOrder = orderRepository.save(order);
+
+        System.out.println("Order total Price 5 :"+ savedOrder.getTotalAmount());
+
+        System.out.println("order created at 2 :"+ savedOrder.getCreatedAt());
 
 
         List<OrderItemDTO> orderItemDTOS = orderItems.stream()
                 .map(item -> {
                     OrderItemDTO orderItemDTO = new OrderItemDTO();
+                    orderItemDTO.setId(item.getId());
                     orderItemDTO.setProductId(item.getProductId());
                     orderItemDTO.setQuantity(item.getQuantity());
                     orderItemDTO.setPrice(item.getPrice());
@@ -159,11 +176,15 @@ public class OrderService {
 
 
         OrderResponse orderResponse = new OrderResponse();
-        orderResponse.setId(order.getId());
-        orderResponse.setTotalAmount(order.getTotalAmount());
-        orderResponse.setStatus(order.getStatus());
+        orderResponse.setId(savedOrder.getId());
+        orderResponse.setTotalAmount(savedOrder.getTotalAmount());
+        orderResponse.setStatus(savedOrder.getStatus());
         orderResponse.setItems(orderItemDTOS);
-        orderResponse.setCreatedAt(order.getCreatedAt());
+
+        System.out.println("order created at 3 :"+ savedOrder.getCreatedAt());
+        orderResponse.setCreatedAt(savedOrder.getCreatedAt());
+
+        System.out.println("order created at 4 :"+ savedOrder.getCreatedAt());
 
 
 //        clear the cart

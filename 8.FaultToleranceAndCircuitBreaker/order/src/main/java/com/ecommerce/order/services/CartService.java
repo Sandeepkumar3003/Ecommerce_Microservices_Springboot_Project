@@ -94,16 +94,14 @@ public class CartService {
 //    }
 
 
+@CircuitBreaker(name = "productService", fallbackMethod = "addToCartFallBack")
 public boolean addToCart(String userId, CartItemRequest request) {
     // Fetch product from product service
     ProductResponse productResponse;
-    try {
-        productResponse = productServiceClient.getProductDetails(request.getProductId());
-        System.out.println("Product Response: "+ productResponse);
-    } catch (Exception e) {
-        System.out.println("Product service unavailable: " + e.getMessage());
-        return false;
-    }
+
+    productResponse = productServiceClient.getProductDetails(request.getProductId());
+    System.out.println("Product Response: "+ productResponse);
+
 
     if (productResponse == null || productResponse.getStockQuantity() < request.getQuantity()) {
         return false; // Product doesn't exist or insufficient stock
@@ -111,25 +109,25 @@ public boolean addToCart(String userId, CartItemRequest request) {
 
     // Fetch user from user service
     UserResponse userResponse;
-    try {
-        userResponse = userServiceClient.getUserDetails(userId);
-        System.out.println("UserResponse Response: "+ userResponse);
-    } catch (Exception e) {
-        System.out.println("User service unavailable: " + e.getMessage());
-        return false;
-    }
+
+    userResponse = userServiceClient.getUserDetails(userId);
+    System.out.println("UserResponse Response: "+ userResponse);
+
 
     if (userResponse == null) {
         return false; // User doesn't exist
     }
 
     // Check if cart item exists
-    Optional<CartItem> optionalCartItem = cartItemRepository.findByUserIdAndProductId(userId, request.getProductId());
+    CartItem existingCartItem = cartItemRepository.findByUserIdAndProductId(userId, request.getProductId());
 
-    if (optionalCartItem.isPresent()) {
+    if (existingCartItem != null) {
         // Update existing cart item
-        CartItem existingCartItem = optionalCartItem.get();
+        System.out.println("Existing quantity :"+ existingCartItem.getQuantity() +" requested quantity :"+ request.getQuantity());
+
         existingCartItem.setQuantity(existingCartItem.getQuantity() + request.getQuantity());
+
+        System.out.println("Existing quantity :"+ existingCartItem.getQuantity() +" requested quantity :"+ request.getQuantity());
         existingCartItem.setPrice(productResponse.getPrice());
         existingCartItem.setTotalPrice(productResponse.getPrice().multiply(BigDecimal.valueOf(existingCartItem.getQuantity())));
         cartItemRepository.save(existingCartItem);
@@ -142,6 +140,7 @@ public boolean addToCart(String userId, CartItemRequest request) {
         cartItem.setPrice(productResponse.getPrice());
         cartItem.setTotalPrice(productResponse.getPrice().multiply(BigDecimal.valueOf(request.getQuantity())));
         cartItemRepository.save(cartItem);
+//        return true;
     }
 
     return true;
@@ -178,10 +177,10 @@ public boolean addToCart(String userId, CartItemRequest request) {
 //        Optional<Product> productOpt = productRepository.findById(productId);
 //        Optional<User> userOpt = userRepository.findById(Long.valueOf(userId));
 
-        Optional<CartItem> cartItem = cartItemRepository.findByUserIdAndProductId(userId, productId);
+        CartItem cartItem = cartItemRepository.findByUserIdAndProductId(userId, productId);
 
         if (cartItem != null) {
-            cartItemRepository.delete(cartItem.get());
+            cartItemRepository.delete(cartItem);
             return true;
         }
         return false;
